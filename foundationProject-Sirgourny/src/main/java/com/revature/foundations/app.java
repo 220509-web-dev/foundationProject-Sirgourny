@@ -3,10 +3,7 @@ package com.revature.foundations;
 import com.revature.foundations.daos.UserDAO;
 import com.revature.foundations.daos.UserDaoPostgres;
 import com.revature.foundations.models.User;
-import com.revature.foundations.utils.ConnectionFactory;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 public class app {

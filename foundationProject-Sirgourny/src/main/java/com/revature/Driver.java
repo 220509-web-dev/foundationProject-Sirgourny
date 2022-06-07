@@ -1,6 +1,6 @@
 package com.revature;
 
-import java.util.Scanner;
+import com.revature.foundations.models.AppUser;
 
 public class Driver {
 

@@ -1,6 +1,7 @@
 package com.revature.foundations.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.foundations.services.AuthService;
 
 import javax.servlet.http.HttpServlet;
 

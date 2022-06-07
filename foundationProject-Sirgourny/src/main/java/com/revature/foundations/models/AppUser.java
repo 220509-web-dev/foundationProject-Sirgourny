@@ -1,4 +1,4 @@
-package com.revature;
+package com.revature.foundations.models;
 
 import java.util.Objects;
 
