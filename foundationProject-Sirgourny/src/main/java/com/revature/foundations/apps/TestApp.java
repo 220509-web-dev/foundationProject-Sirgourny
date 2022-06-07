@@ -14,9 +14,9 @@ public class TestApp {
     static int test_id;
     static String username = "TestU";
     public static void main(String[] args) {
-        //test_createUser();
-        //test_getUserById();
-        //test_getUserByUsername();
+        test_createUser();
+        test_getUserById();
+        test_getUserByUsername();
         test_getAllUsers();
     }
 
