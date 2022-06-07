@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.revature.foundations.logger.CustomLogger.logError;
+
 public class UserDaoPostgres implements UserDAO{
     final static String loc = "tryagain4.app_users";
     @Override
@@ -31,21 +33,13 @@ public class UserDaoPostgres implements UserDAO{
 
             user.setUser_id(generatedId); //
             return user;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-           // System.err.println("An Error occurred! Check credentials for your SQL database.");
-         /*   throw new RuntimeException(e);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            logError(e);
             throw new RuntimeException(e);
         } catch (Throwable t) {
-            t.printStackTrace();
-            throw new RuntimeException();
-            */
+            logError(t);
+            throw new RuntimeException(t);
         }
-        return null;
-
-
     }
         @Override
         public User getUserById(int id) {
@@ -75,13 +69,16 @@ public class UserDaoPostgres implements UserDAO{
 
         } catch (SQLException exception) {
             exception.printStackTrace();
+            logError(exception);
             System.err.println("An Error occurred! Check credentials for your SQL database.");
             throw new RuntimeException();
         } catch (RuntimeException exception) {
             exception.printStackTrace();
+            logError(exception);
             throw new RuntimeException();
         } catch (Throwable t) {
             t.printStackTrace();
+            logError(t);
             throw new RuntimeException();
         }
         return null;
