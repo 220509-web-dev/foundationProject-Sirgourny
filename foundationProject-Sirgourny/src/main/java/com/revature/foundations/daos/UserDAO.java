@@ -1,6 +1,7 @@
 package com.revature.foundations.daos;
 
 
+import com.revature.foundations.dto.ResourceCreationResponse;
 import com.revature.foundations.models.User;
 
 import java.sql.SQLException;

@@ -18,6 +18,11 @@ public class AppUser {
         this.username = username;
         this.password = password;
     }
+
+    public AppUser(int i, String briana, String mania, String s, String brianaMa, String briana00) {
+
+    }
+
     // Getter
     public String getUsername() {
         return username;

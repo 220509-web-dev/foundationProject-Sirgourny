@@ -1,9 +1,11 @@
-package com.revature.foundations.utils.exceptions;
+package com.revature.foundations.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import static com.revature.foundations.logger.CustomLogger.logError;
 
 public class ConnectionFactory {
 
@@ -22,6 +24,7 @@ public class ConnectionFactory {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (Exception e) {
+            logError(e);
             System.err.println("Failed to load PostgreSQL Driver");
             throw new RuntimeException(e); // fail fast
         }
@@ -33,6 +36,7 @@ public class ConnectionFactory {
         try {
             props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties"));
         } catch (Exception e) {
+            logError(e);
             System.err.println("Failed to load database credentials from property file.");
             throw new RuntimeException(e); // fail fast for easier debugging
         }

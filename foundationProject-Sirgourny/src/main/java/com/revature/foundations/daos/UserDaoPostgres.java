@@ -1,7 +1,7 @@
 package com.revature.foundations.daos;
 
 import com.revature.foundations.models.User;
-import com.revature.foundations.utils.exceptions.ConnectionFactory;
+import com.revature.foundations.utils.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -113,13 +113,16 @@ public class UserDaoPostgres implements UserDAO{
 
         } catch(SQLException e){
                 e.printStackTrace();
+            logError(e);
                 System.err.println("An Error occurred! Check credentials for your SQL database.");
                 throw new RuntimeException(e);
             } catch(RuntimeException e){
                 e.printStackTrace();
+            logError(e);
                 throw new RuntimeException(e);
             } catch(Throwable t){
                 t.printStackTrace();
+            logError(t);
                 throw new RuntimeException();
             }
            return null;
@@ -149,6 +152,8 @@ public class UserDaoPostgres implements UserDAO{
 
         } catch (SQLException exception) {
             exception.printStackTrace();
+            Throwable e = new Throwable();
+            logError(e);
         /*
         catch (SQLException e) {
 
@@ -185,6 +190,8 @@ public class UserDaoPostgres implements UserDAO{
 
         } catch (SQLException exception) {
             exception.printStackTrace();
+            Throwable e = new Throwable();
+            logError(e);
         }
         return null;
     }

@@ -94,4 +94,12 @@ public class User {
     public int hashCode() {
         return Objects.hash(user_id, firstname, lastname, email, username, password);
     }
+
+    public Object getQuestionText() {
+        return null;
+    }
+
+    public Object getAnswerText() {
+        return null;
+    }
 }

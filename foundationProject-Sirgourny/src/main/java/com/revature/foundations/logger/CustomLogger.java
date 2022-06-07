@@ -35,6 +35,7 @@ public class CustomLogger {
             // need to write the stacktrace
 
         } catch (IOException e) {
+            logError(e);
             throw new RuntimeException(e);
         }
     }
@@ -65,6 +66,7 @@ public class CustomLogger {
                 //System.out.println("File already exists.");
             }
         } catch (IOException e) {
+            logError(e);
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
