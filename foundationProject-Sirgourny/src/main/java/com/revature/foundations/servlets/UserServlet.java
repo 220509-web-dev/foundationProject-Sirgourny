@@ -3,7 +3,11 @@ package com.revature.foundations.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.foundations.daos.UserDAO;
+import com.revature.foundations.daos.UserDaoPostgres;
+import com.revature.foundations.dto.ResourceCreationResponse;
 import com.revature.foundations.models.AppUser;
+import com.revature.foundations.models.User;
+import com.revature.foundations.services.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +21,12 @@ import static com.revature.foundations.logger.CustomLogger.logError;
 public class UserServlet extends HttpServlet {
 
     private final ObjectMapper mapper;
-    private final UserDAO userDAO;
 
-    public UserServlet(ObjectMapper mapper, UserDAO userDAO) {
+    private final UserService userService;
+
+    public UserServlet(ObjectMapper mapper, UserService userService) {
         this.mapper = mapper;
-        this.userDAO = userDAO;
+        this.userService = userService;
     }
 
     @Override
@@ -33,41 +38,51 @@ public class UserServlet extends HttpServlet {
         System.out.println("[LOG] - Context param, test-context-key: " + this.getServletContext().getInitParameter("test-context-key"));
     }
 
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println("[LOG] - UserServlet received a GET request at " + LocalDateTime.now());
-        System.out.println("[LOG] - Was request filtered? " + req.getAttribute("was-filtered"));
-        // This value would actually come from some data source
-        AppUser someUser = new AppUser(999, "Alice", "Anderson", "aanderson@revature.com", "aanderson83", "password");
+//        System.out.println("[LOG] - UserServlet received a GET request at " + LocalDateTime.now());
+//        System.out.println("[LOG] - Was request filtered? " + req.getAttribute("was-filtered"));
+//        // This value would actually come from some data source
+//        AppUser someUser = new AppUser(999, "Alice", "Anderson", "aanderson@revature.com", "aanderson83", "password");
+//
+//        // We can also use HashMaps to construct JSON payloads
+////        HashMap<String, Object> someUser = new HashMap<>();
+////        someUser.put("id", 999);
+////        someUser.put("firstName", "Alice");
+////        someUser.put("lastName", "Anderson");
+//
+//
+//
+//        String respPayload = mapper.writeValueAsString(someUser);
+//        resp.setContentType("application/json");
+//        resp.getWriter().write(respPayload);
 
-        // We can also use HashMaps to construct JSON payloads
-//        HashMap<String, Object> someUser = new HashMap<>();
-//        someUser.put("id", 999);
-//        someUser.put("firstName", "Alice");
-//        someUser.put("lastName", "Anderson");
-
-
-
-        String respPayload = mapper.writeValueAsString(someUser);
+   //get User - it is newUser - use the mapper to read the value from the input stream of the request - tell jackson to turn it into a user
+        User newUser = mapper.readValue(reg.getInputStream(), User.class);
+        // if the user is valid, we use the userService to pass it through and validate it
+        ResourceCreationResponse payload = userService.createNewUser(newUser);
+        resp.setStatus(201); // This basically says that something has been CREATED
         resp.setContentType("application/json");
-        resp.getWriter().write(respPayload);
+        resp.getWriter().write(mapper.writeValueAsString(payload));
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println("[LOG] - UserServlet received a POST request at " + LocalDateTime.now());
-
-        try {
-            AppUser newUser = mapper.readValue(req.getInputStream(), AppUser.class);
-            System.out.println(newUser);
-        } catch (Exception e) {
-            logError(e);
-            e.printStackTrace();
-        }
-        resp.setStatus(204);
+//        System.out.println("[LOG] - UserServlet received a POST request at " + LocalDateTime.now());
+//
+//        try {
+//            AppUser newUser = mapper.readValue(req.getInputStream(), AppUser.class);
+//            System.out.println(newUser);
+//        } catch (Exception e) {
+//            logError(e);
+//            e.printStackTrace();
+//        }
+//        resp.setStatus(204);
 
     }
 

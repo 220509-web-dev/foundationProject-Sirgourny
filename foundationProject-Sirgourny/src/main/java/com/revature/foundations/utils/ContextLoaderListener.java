@@ -2,11 +2,10 @@ package com.revature.foundations.utils;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.foundations.daos.UserDAO;
 import com.revature.foundations.daos.UserDaoPostgres;
+import com.revature.foundations.services.UserService;
 import com.revature.foundations.servlets.AuthServlet;
 
-import com.revature.foundations.servlets.NewServlet;
 import com.revature.foundations.servlets.UserServlet;
 
 import javax.servlet.*;
@@ -20,11 +19,11 @@ public class ContextLoaderListener implements ServletContextListener {
         System.out.println("[LOG] - The servlet context was initialized at " + LocalDateTime.now());
 
         ObjectMapper mapper = new ObjectMapper();
-        UserDAO userDAO = new UserDaoPostgres();
 
-        NewServlet newServlet = new NewServlet();
+        UserDaoPostgres userDAOPostgres = new UserDaoPostgres();
+        UserService userService = new UserService(userDAOPostgres);
+        UserServlet userServlet = new UserServlet(mapper, userService);
 
-        UserServlet userServlet = new UserServlet(mapper, userDAO);
         AuthServlet authServlet = new AuthServlet(mapper);
 
         ServletContext context = sce.getServletContext();
