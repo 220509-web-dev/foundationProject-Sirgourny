@@ -5,31 +5,14 @@
          version="3.1">
 
     <display-name>Sirgourny's Foundation Project</display-name>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+
     <listener>
         <listener-class>com.revature.foundations.utils.ContextLoaderListener</listener-class>
     </listener>
 
-<!--    <servlet>-->
-<!--        <servlet-name>TestServlet</servlet-name>-->
-<!--        <servlet-class>com.revature.foundations.servlets.TestServlet</servlet-class>-->
-<!--    </servlet>-->
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>TestServlet</servlet-name>-->
-<!--        <url-pattern>/test</url-pattern>-->
-<!--    </servlet-mapping>-->
-
-<!--    <servlet>-->
-<!--        <servlet-name>AuthServlet</servlet-name>-->
-<!--        <servlet-class>com.revature.foundations.servlets.AuthServlet</servlet-class>-->
-<!--    </servlet>-->
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>AuthServlet</servlet-name>-->
-<!--        <url-pattern>/auth</url-pattern>-->
-<!--    </servlet-mapping>-->
 </web-app>
 

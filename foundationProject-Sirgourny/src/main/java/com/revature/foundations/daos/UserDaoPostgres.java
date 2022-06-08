@@ -1,9 +1,7 @@
 package com.revature.foundations.daos;
 
-import com.revature.foundations.dto.ResourceCreationResponse;
 import com.revature.foundations.models.User;
 import com.revature.foundations.utils.ConnectionFactory;
-import com.revature.foundations.utils.exceptions.DataSourceException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,8 +21,7 @@ public class UserDaoPostgres implements UserDAO{
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getEmail());
-            String username = new String();
-            ps.setString(4, user.getUsername(username));
+            ps.setString(4, user.getUsername());
             ps.setString(5, user.getPassword());
 
             ps.execute();
@@ -184,8 +181,7 @@ public class UserDaoPostgres implements UserDAO{
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getEmail());
-            String username = new String();
-            ps.setString(4, user.getUsername(username));
+            ps.setString(4, user.getUsername());
             ps.setString(5, user.getPassword());
 
             ps.execute();
@@ -202,7 +198,7 @@ public class UserDaoPostgres implements UserDAO{
 
     @Override
     public void deleteUserById(int id) {
-        try(Connection conn = ConnectionFactory.getConnection()){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "delete from "+loc+" where id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,id);
@@ -211,28 +207,6 @@ public class UserDaoPostgres implements UserDAO{
             exception.printStackTrace();
         }
 
-        public User save(User newUser) {
-                            // .getConnection will throw an error, handle it by using a catch clause (click more actions)
-            try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-
-                String sql = "INSERT INTO users VALUES (default, ?, ?)";
-                PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                pstmt.setString(1, newUser.getQuestionText());
-                pstmt.setString(2, newUser.getAnserText());
-
-                ResultSet rs = pstmt.executeQuery();
-                newUser.setId(rs.getInt("id"));
-                return newUser;
-
-            } catch (SQLException e) {
-                throw new DataSourceException("An error occurred during data access", e);
-                logError(e);
-            }
-        }
-
     }
 
-    public ResourceCreationResponse save(User newUser) {
-        return null;
-    }
 }

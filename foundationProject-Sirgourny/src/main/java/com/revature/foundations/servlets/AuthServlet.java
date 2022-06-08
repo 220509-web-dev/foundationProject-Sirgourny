@@ -7,7 +7,7 @@ package com.revature.foundations.servlets;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.foundations.models.AppUser;
+import com.revature.foundations.models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,13 +45,13 @@ public class AuthServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         // Hard-coded example users (that totally come from the database)
-        List<AppUser> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         users.addAll(Arrays.asList(
-                new AppUser(1, "Briana", "Mania", "BrianaManin@fofo.com", "BrianaMa", "Briana00"),
-                new AppUser(2, "Contrea", "Crosby", "ContreaC@boo.com", "ContreaC", "Contrea1"),
-                new AppUser(3, "Shawnda", "Wilson", "ShawndaW@gogo.com", "ShawndaW", "Shawnda5"),
-                new AppUser(4, "Kentrell", "Bennette", "Kentrell@tootoo.com", "KenBen", "KenB9012"),
-                new AppUser(5, "Saraphina", "Jones", "SaraphinaL@roo.com", "SaraLan", "SaraL345")
+                new User(1, "Briana", "Mania", "BrianaManin@fofo.com", "BrianaMa", "Briana00"),
+                new User(2, "Contrea", "Crosby", "ContreaC@boo.com", "ContreaC", "Contrea1"),
+                new User(3, "Shawnda", "Wilson", "ShawndaW@gogo.com", "ShawndaW", "Shawnda5"),
+                new User(4, "Kentrell", "Bennette", "Kentrell@tootoo.com", "KenBen", "KenB9012"),
+                new User(5, "Saraphina", "Jones", "SaraphinaL@roo.com", "SaraLan", "SaraL345")
         ));
 
         // Totally valid to create a custom DTO to represent a Credentials request body
@@ -60,7 +60,7 @@ public class AuthServlet extends HttpServlet {
         String providedUsername = (String) credentials.get("username");
         String providedPassword = (String) credentials.get("password");
 
-        for (AppUser user : users) {
+        for (User user : users) {
             if (providedUsername.equals(user.getUsername()) && providedPassword.equals(user.getPassword())) {
                 System.out.println("[LOG] - found user!");
 

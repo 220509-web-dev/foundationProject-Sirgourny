@@ -5,7 +5,6 @@ package com.revature.foundations.services;
 import com.revature.foundations.daos.UserDaoPostgres;
 import com.revature.foundations.dto.ResourceCreationResponse;
 import com.revature.foundations.models.User;
-import com.revature.foundations.servlets.UserServlet;
 import com.revature.foundations.utils.exceptions.InvalidRequestException;
 
 public class UserService {
@@ -33,7 +32,7 @@ public class UserService {
         }
 
         // VALIDATE: If valid, persist to DB and return its result
-       return new ResourceCreationResponse(userDaoPostgres.save(newUser).getId());
+       return new ResourceCreationResponse(userDaoPostgres.createUser(newUser).getUser_id());
     }
 
 }
