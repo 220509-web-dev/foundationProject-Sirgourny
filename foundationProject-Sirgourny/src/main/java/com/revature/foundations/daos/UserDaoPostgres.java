@@ -21,7 +21,8 @@ public class UserDaoPostgres implements UserDAO{
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getEmail());
-            ps.setString(4, user.getUsername());
+            String username = new String();
+            ps.setString(4, user.getUsername(username));
             ps.setString(5, user.getPassword());
 
             ps.execute();
@@ -181,7 +182,8 @@ public class UserDaoPostgres implements UserDAO{
             ps.setString(1, user.getFirstname());
             ps.setString(2, user.getLastname());
             ps.setString(3, user.getEmail());
-            ps.setString(4, user.getUsername());
+            String username = new String();
+            ps.setString(4, user.getUsername(username));
             ps.setString(5, user.getPassword());
 
             ps.execute();
