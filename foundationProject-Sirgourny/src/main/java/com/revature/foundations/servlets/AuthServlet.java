@@ -7,6 +7,7 @@ package com.revature.foundations.servlets;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.foundations.daos.UserDaoPostgres;
 import com.revature.foundations.models.User;
 
 import javax.servlet.ServletException;
@@ -24,9 +25,11 @@ import java.util.List;
 public class AuthServlet extends HttpServlet {
 
     private final ObjectMapper mapper;
+    private UserDaoPostgres userDao;
 
-    public AuthServlet(ObjectMapper mapper) {
+    public AuthServlet(ObjectMapper mapper, UserDaoPostgres userDao) {
         this.mapper = mapper;
+        this.userDao = userDao;
     }
 
     @Override
@@ -44,15 +47,8 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // Hard-coded example users (that totally come from the database)
-        List<User> users = new ArrayList<>();
-        users.addAll(Arrays.asList(
-                new User(1, "Briana", "Mania", "BrianaManin@fofo.com", "BrianaMa", "Briana00"),
-                new User(2, "Contrea", "Crosby", "ContreaC@boo.com", "ContreaC", "Contrea1"),
-                new User(3, "Shawnda", "Wilson", "ShawndaW@gogo.com", "ShawndaW", "Shawnda5"),
-                new User(4, "Kentrell", "Bennette", "Kentrell@tootoo.com", "KenBen", "KenB9012"),
-                new User(5, "Saraphina", "Jones", "SaraphinaL@roo.com", "SaraLan", "SaraL345")
-        ));
+
+
 
         // Totally valid to create a custom DTO to represent a Credentials request body
         // but HashMaps work too.
@@ -60,17 +56,15 @@ public class AuthServlet extends HttpServlet {
         String providedUsername = (String) credentials.get("username");
         String providedPassword = (String) credentials.get("password");
 
-        for (User user : users) {
-            if (providedUsername.equals(user.getUsername()) && providedPassword.equals(user.getPassword())) {
-                System.out.println("[LOG] - found user!");
+        User authUser = userDao.getUserByUsernameAndPassword(providedUsername, providedPassword);
+        System.out.println("user from db - " + authUser);
+        if (authUser != null) {
+            // Because HTTP is a stateless protocol, we need a session to persist data across multiple requests
+            HttpSession session = req.getSession(); // use req.getSession(false) to prevent a session from being made
+            session.setAttribute("auth-user", authUser); // this attribute is visible on any requests with this session attached
 
-                // Because HTTP is a stateless protocol, we need a session to persist data across multiple requests
-                HttpSession session = req.getSession(); // use req.getSession(false) to prevent a session from being made
-                session.setAttribute("auth-user", user); // this attribute is visible on any requests with this session attached
-
-                resp.setStatus(204); // NO CONTENT (success but nothing to return)
-                return; // return here otherwise we continue and bad things might happen
-            }
+            resp.setStatus(204); // NO CONTENT (success but nothing to return)
+            return;
         }
 
         resp.setStatus(400);

@@ -84,6 +84,34 @@ public class UserDaoPostgres implements UserDAO{
         return null;
     }
 
+    public User getUserByUsernameAndPassword(String username, String password) {
+
+        User user = null;
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            String sql = "select * from " + loc + " where username = ? and password = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                user = new User();
+                user.setUser_id(rs.getInt("id"));
+                user.setFirstname(rs.getString("first_name"));  // username is the column name in the SQL table
+                user.setLastname(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
     @Override
     public User getUserByUsername(String username) {
         try {

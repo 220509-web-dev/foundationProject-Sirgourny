@@ -7,7 +7,7 @@ function login() {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
-    fetch('/quizzard/auth', {
+    fetch('/foundations/auth', {
         method: 'POST',
         body: JSON.stringify({username, password})
     }).then(function () {
