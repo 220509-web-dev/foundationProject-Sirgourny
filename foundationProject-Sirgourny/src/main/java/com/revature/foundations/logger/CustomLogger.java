@@ -53,7 +53,12 @@ public class CustomLogger {
             writer.write(todayAsString + "\n" + debugMessage + "\n" + "\n");
             writer.close();
             //System.out.println("Wrote things to the file!");
-        } catch (Throwable t) {}
+        } catch (Throwable t) {
+            t.printStackTrace();
+            logError(t);
+            throw new RuntimeException();
+        }
+
     }
 
     private static void setup() {
@@ -63,7 +68,7 @@ public class CustomLogger {
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
-                //System.out.println("File already exists.");
+                System.out.println("File already exists.");
             }
         } catch (IOException e) {
             logError(e);

@@ -6,11 +6,17 @@ import com.revature.foundations.models.User;
 import com.revature.foundations.services.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 
+@WebServlet("/User") // annotation-based servlet registration
 public class UserServlet extends HttpServlet {
 
     private final ObjectMapper mapper;
@@ -49,16 +55,13 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//        System.out.println("[LOG] - UserServlet received a POST request at " + LocalDateTime.now());
-//
-//        try {
-//            AppUser newUser = mapper.readValue(req.getInputStream(), AppUser.class);
-//            System.out.println(newUser);
-//        } catch (Exception e) {
-//            logError(e);
-//            e.printStackTrace();
-//        }
-//        resp.setStatus(204);
+        try {
+            User newUser = mapper.readValue(req.getInputStream(), User.class);
+            System.out.println(newUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        resp.setStatus(204);
 
     }
 

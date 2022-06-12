@@ -14,5 +14,10 @@
         <listener-class>com.revature.foundations.utils.ContextLoaderListener</listener-class>
     </listener>
 
+<!--    <servlet>-->
+<!--        <servlet-name>AuthServlet</servlet-name>-->
+<!--        <servlet-class>com.revature.foundations.servlets.AuthServlet</servlet-class>-->
+<!--    </servlet>-->
+
 </web-app>
 

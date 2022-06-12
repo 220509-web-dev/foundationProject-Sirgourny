@@ -11,6 +11,7 @@ import com.revature.foundations.daos.UserDaoPostgres;
 import com.revature.foundations.models.User;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class AuthServlet extends HttpServlet {
 
@@ -49,9 +51,6 @@ public class AuthServlet extends HttpServlet {
 
 
 
-
-        // Totally valid to create a custom DTO to represent a Credentials request body
-        // but HashMaps work too.
         HashMap<String, Object> credentials = mapper.readValue(req.getInputStream(), HashMap.class);
         String providedUsername = (String) credentials.get("username");
         String providedPassword = (String) credentials.get("password");
