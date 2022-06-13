@@ -99,8 +99,8 @@ public class UserDaoPostgres implements UserDAO{
             while (rs.next()) {
                 user = new User();
                 user.setUser_id(rs.getInt("id"));
-                user.setFirstname(rs.getString("first_name"));  // username is the column name in the SQL table
-                user.setLastname(rs.getString("last_name"));
+                user.setFirstname(rs.getString("firstname"));  // username is the column name in the SQL table
+                user.setLastname(rs.getString("lastname"));
                 user.setEmail(rs.getString("email"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));

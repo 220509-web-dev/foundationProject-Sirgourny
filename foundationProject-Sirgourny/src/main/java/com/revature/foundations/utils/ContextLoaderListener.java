@@ -25,14 +25,18 @@ public class ContextLoaderListener implements ServletContextListener {
 
         ServletContext context = sce.getServletContext();
 
+        // Sanity Servlet
         SanityServlet sanityServlet = new SanityServlet();
         context.addServlet("SanityServlet", sanityServlet).addMapping("/sanity");
 
+        // Auth Servlet
         AuthServlet authServlet = new AuthServlet(mapper, userDAOPostgres);
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
 
+        // User Servlet
         UserServlet userServlet = new UserServlet(mapper, userService);
         context.addServlet("UserServlet", userServlet).addMapping("/users");
+
 
     }
 

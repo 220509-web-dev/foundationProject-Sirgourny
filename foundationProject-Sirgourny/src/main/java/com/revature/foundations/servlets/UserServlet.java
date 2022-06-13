@@ -42,6 +42,11 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        User someUser = new User(1, "Briana", "Manina", "BrianaManin@fofo.com", "BrianaMa", "Briana00");
+
+        String respPayload = mapper.writeValueAsString(someUser);
+        resp.getWriter().write(respPayload);
+
         //get User - it is newUser - use the mapper to read the value from the input stream of the request - tell jackson to turn it into a user
         User newUser = mapper.readValue(req.getInputStream(), User.class);
         // if the user is valid, we use the userService to pass it through and validate it
@@ -54,6 +59,8 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("[LOG] = UserServlet received a request at " + LocalDateTime.now());
 
         try {
             User newUser = mapper.readValue(req.getInputStream(), User.class);

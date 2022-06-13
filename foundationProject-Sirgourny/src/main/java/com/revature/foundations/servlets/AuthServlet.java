@@ -49,6 +49,12 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        List<User> users = new ArrayList<>();
+        users.addAll(Arrays.asList(
+                new User(1, "Briana", "Manina", "BrianaManin@fofo.com", "BrianaMa", "Briana00"),
+                new User(2, "Contrea", "Crosby", "ContreaC@boo.com", "ContreaC", "Contrea1")
+        ));
+        
 
 
         HashMap<String, Object> credentials = mapper.readValue(req.getInputStream(), HashMap.class);
