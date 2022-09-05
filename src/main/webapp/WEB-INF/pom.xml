@@ -47,7 +47,7 @@
                 <configuration>
                     <url>http://localhost:8080/manager/text</url>
                     <server>LocalTomcat</server>
-                    <path>/foundations</path>
+                    <path>/foundationProject-Sirgourny</path>
                     <update>true</update>
                 </configuration>
             </plugin>
