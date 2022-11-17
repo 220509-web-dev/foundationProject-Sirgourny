@@ -4,6 +4,9 @@ The Expense Reimbursement System (ERS) will manage the process of reimbursing em
 
 ## Tech Stack
 - Java v8
+- JavaScript
+- CSS
+- HTML
 - Servlet API v4
 - JDBC
 - PostgreSQL DB
